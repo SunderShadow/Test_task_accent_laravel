@@ -18,19 +18,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('/{selectedCitySlug}')->group(function () {
-    Route::get('/', function ($selectedCitySlug) {
-        $cities = \App\Models\City::query()->orderBy('name', 'ASC')->get();
-
-        $cities = $cities->collect();
-        $city = $cities->firstWhere(function ($a) use ($selectedCitySlug) {
-            return $a['slug'] === $selectedCitySlug;
-        });
-
-        if (!$city) {
-            return redirect('/');
-        }
-        session()->put('selectedCitySlug', $city['slug']); // Да, я захардкодил, ибо нефиг
-
-        return view('welcome', compact(['cities', 'selectedCitySlug']));
-    });
+    Route::get('/',      [\App\Http\Controllers\PageController::class, 'home']);
+    Route::get('/about', [\App\Http\Controllers\PageController::class, 'about']);
+    Route::get('/news',  [\App\Http\Controllers\PageController::class, 'news']);
 });
