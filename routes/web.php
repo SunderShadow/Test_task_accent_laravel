@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('/{selectedCitySlug}')->group(function () {
-    Route::get('/',      [\App\Http\Controllers\PageController::class, 'home']);
-    Route::get('/about', [\App\Http\Controllers\PageController::class, 'about']);
-    Route::get('/news',  [\App\Http\Controllers\PageController::class, 'news']);
+    Route::get('/',      [\App\Http\Controllers\PageController::class, 'home'])->name('home');
+    Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->name('about');
+    Route::get('/news',  [\App\Http\Controllers\PageController::class, 'news'])->name('news');
 });

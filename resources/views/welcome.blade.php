@@ -1,37 +1,24 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@include('template.header')
+<div class="container gap-5" style="columns: 6;">
+    @php
+        $currentLetter = $cities[0]['name'][0];
+    @endphp
 
-        <title>Laravel</title>
+    @foreach($cities as $city)
+        @if ($currentLetter !== substr($city['name'], 0, 2))
+            @php $currentLetter = substr($city['name'], 0, 2) @endphp
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    </head>
-    <body class="antialiased">
-    <div class="gap-5" style="columns: 6;">
-        @php
-            $currentLetter = $cities[0]['name'][0];
-        @endphp
-        @foreach($cities as $city)
-            @if ($currentLetter !== substr($city['name'], 0, 2))
-                @php $currentLetter = substr($city['name'], 0, 2) @endphp
+            <h1>{{ $currentLetter }}</h1>
+        @endif
 
-                <h1>{{ $currentLetter }}</h1>
+        <a href="/{{$city['slug']}}">
+            @if ($selectedCitySlug === $city['slug'])
+                <b>{{ $city['name'] }}</b>
+            @else
+                {{ $city['name'] }}
             @endif
+        </a>
+    @endforeach
+</div>
 
-            <a href="/{{$city['slug']}}">
-                @if ($selectedCitySlug === $city['slug'])
-                    <b>{{ $city['name'] }}</b>
-                @else
-                    {{ $city['name'] }}
-                @endif
-            </a>
-        @endforeach
-    </div>
-    </body>
-</html>
+@include('template.footer')
