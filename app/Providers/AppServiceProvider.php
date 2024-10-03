@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('*', HeaderViewComposer::class);
+        View::share('menu', [
+            'home'  => 'Home',
+            'about' => 'About',
+            'news'  => 'News',
+        ]);
+
     }
 }

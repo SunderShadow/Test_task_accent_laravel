@@ -24,12 +24,14 @@ class CitySlug
 
         if (!$city) {
             session()->put('selectedCitySlug', 'moskva'); // Да, я захардкодил, ибо нефиг
+            session()->put('selectedCityName', 'Москва'); // Да, я захардкодил, ибо нефиг
             return redirect('/moskva');
         }
 
         $request->request->add(compact('cities'));
 
         session()->put('selectedCitySlug', $city['slug']);
+        session()->put('selectedCityName', $city['name']);
         return $next($request);
     }
 }
