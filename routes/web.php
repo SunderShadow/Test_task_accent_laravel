@@ -12,9 +12,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', function () {
+    $city = session()->get('selectedCitySlug', 'moskva');
+    return redirect('/' . $city);
+});
 
-Route::get('/{city}', function () {
-    $cities = json_decode(file_get_contents('https://api.hh.ru/areas'), true)[0];
+Route::prefix('/{selectedCitySlug}')->group(function () {
+    Route::get('/', function ($selectedCitySlug) {
+        $cities = \App\Models\City::query()->orderBy('name', 'ASC')->get();
 
-    return view('welcome', compact(['cities']));
+        $cities = $cities->collect();
+        $city = $cities->firstWhere(function ($a) use ($selectedCitySlug) {
+            return $a['slug'] === $selectedCitySlug;
+        });
+
+        if (!$city) {
+            return redirect('/');
+        }
+        session()->put('selectedCitySlug', $city['slug']); // Да, я захардкодил, ибо нефиг
+
+        return view('welcome', compact(['cities', 'selectedCitySlug']));
+    });
 });

@@ -13,8 +13,25 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </head>
     <body class="antialiased">
-        @foreach($cities['areas'] as $city)
-            {{ $city['name'] }} <br>
+    <div class="gap-5" style="columns: 6;">
+        @php
+            $currentLetter = $cities[0]['name'][0];
+        @endphp
+        @foreach($cities as $city)
+            @if ($currentLetter !== substr($city['name'], 0, 2))
+                @php $currentLetter = substr($city['name'], 0, 2) @endphp
+
+                <h1>{{ $currentLetter }}</h1>
+            @endif
+
+            <a href="/{{$city['slug']}}">
+                @if ($selectedCitySlug === $city['slug'])
+                    <b>{{ $city['name'] }}</b>
+                @else
+                    {{ $city['name'] }}
+                @endif
+            </a>
         @endforeach
+    </div>
     </body>
 </html>

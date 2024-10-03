@@ -54,7 +54,7 @@ class GetCityDatabaseCommand extends Command
 
         $cities = array_map(
             fn ($v) => [
-                'name' => $v['name'],
+                'name' => ucfirst($v['name']),
                 'slug' => ciryllicSlug($v['name'])
             ],
             $this->parseCities($country['areas'])
@@ -62,7 +62,7 @@ class GetCityDatabaseCommand extends Command
 
         // Alphabet sort
         usort($cities, function ($a, $b) {
-            $a = ucfirst($a['name']);
+            $a = $a['name'];
             $b = $b['name'];
 
             for ($i = 0; $i < strlen($a) && $i < strlen($b); $i++)
