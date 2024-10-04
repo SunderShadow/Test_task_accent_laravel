@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\DB;
 
 use App\Models\City;
 use Illuminate\Console\Command;
