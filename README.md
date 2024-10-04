@@ -4,7 +4,12 @@
 
 ## Deployment
 
-Run `php arisan app:deploy`
+### Copy .env.example -> .env
+
+### Then run 
+
+* `php artisan key:generate`
+* `php artisan app:deploy`
 
 ## Additional
 ![img.png](_readme/img.png)
