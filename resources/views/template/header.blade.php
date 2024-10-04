@@ -21,7 +21,7 @@
 
             <ul class="nav nav-pills">
                 @foreach($menu as $route => $name)
-                    @php $route = route($route, session()->get('selectedCitySlug')) @endphp
+                    @php $route = route($route) @endphp
                     <li class="nav-item"><a href="{{ $route }}"  class="nav-link {{ $route === url()->current() ? 'active' : '' }}" aria-current="page">{{ $name  }}</a></li>
                 @endforeach
             </ul>

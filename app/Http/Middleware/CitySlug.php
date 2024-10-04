@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Response;
 
 class CitySlug
@@ -17,6 +18,10 @@ class CitySlug
     {
         $slug = $request->route()->parameter('selectedCitySlug');
         $cities = \App\Models\City::query()->orderBy('name', 'ASC')->get();
+
+        URL::defaults([
+            'selectedCitySlug' => session()->get('selectedCitySlug')
+        ]);
 
         $city = $cities->collect()->firstWhere(function ($a) use ($slug) {
             return $a['slug'] === $slug;
