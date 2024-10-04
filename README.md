@@ -4,7 +4,8 @@
 
 ## Deployment
 
-### Copy .env.example -> .env
+### `composer install`
+Copy /.env.example -> /.env
 
 ### Then run 
 
